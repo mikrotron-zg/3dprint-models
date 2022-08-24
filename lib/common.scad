@@ -59,11 +59,13 @@ module test_draw() {
     for (i = [0 : len(nuts_bolts) - 1]) {
         translate([0, i*nut2dia(i), 0]) difference() {
             cylinder(d = nut2dia(i), h = bolt2dia(i), $fn = 6);
-            translate([0, 0, -ex]) cylinder(d = bolt2dia(i), h = bolt2dia(i) + 2*ex);
+            translate(zex()) cylinder(d = bolt2dia(i), h = bolt2dia(i) + 2*ex);
         }
     }
     // Rounded rectangle
     translate([3*offset, 0, 0]) rounded_rect(5*offset, 3*offset, 5, 3);
+    // Quarter of a cylinder
+    translate([3*offset, 5*offset, 0]) cylinder_quarter(offset, 2*offset);
 }
 
 // Draws a rounded rectangle
@@ -74,6 +76,15 @@ module rounded_rect(x, y, z, radius = 1) {
 			square([x-2*radius,y-2*radius]); //keep outer dimensions given by x and y
 			circle(r = radius);
 		}
+}
+
+// Draws quarter of a cylinder
+module cylinder_quarter(r, h){    
+    difference(){
+        cylinder(r=r, h=h);
+        translate ([-r-ex, -r-ex, -ex]) cube([2*r + 2*ex, r + ex, h + 2*ex]);
+        translate ([-r-ex, -ex, -ex]) cube([r + ex, r + ex, h + 2*ex]);
+    }
 }
 
 /****************************************************************************
@@ -87,3 +98,6 @@ function nut2dia(index) = nuts_bolts[index][1]/cos(180/6) + hdc;
 // Calculates bolt diameter for given bolt_nuts index,
 // check bolts_nuts list for index reference
 function bolt2dia(index) = nuts_bolts[index][0] + hdc;
+
+// Move to -ex on z axis
+function zex() = [0, 0, -ex];
