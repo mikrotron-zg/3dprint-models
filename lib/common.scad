@@ -45,7 +45,7 @@ m4_dia = 4 + hdc;
 m5_dia = 5 + hdc;
 
 // Set to true to see some example models, default is false
-test = true;
+test = false;
 if (test) test_draw();
 
 /****************************************************************************
@@ -55,12 +55,25 @@ if (test) test_draw();
 // Set test variable to 'true' to see examples
 module test_draw() {
     offset = 10;
+    // Metric nuts
     for (i = [0 : len(nuts_bolts) - 1]) {
         translate([0, i*nut2dia(i), 0]) difference() {
             cylinder(d = nut2dia(i), h = bolt2dia(i), $fn = 6);
             translate([0, 0, -ex]) cylinder(d = bolt2dia(i), h = bolt2dia(i) + 2*ex);
         }
     }
+    // Rounded rectangle
+    translate([3*offset, 0, 0]) rounded_rect(5*offset, 3*offset, 5, 3);
+}
+
+// Draws a rounded rectangle
+module rounded_rect(x, y, z, radius = 1) {
+    translate([radius,radius,0]) //move origin to outer limits
+	linear_extrude(height=z)
+		minkowski() {
+			square([x-2*radius,y-2*radius]); //keep outer dimensions given by x and y
+			circle(r = radius);
+		}
 }
 
 /****************************************************************************
