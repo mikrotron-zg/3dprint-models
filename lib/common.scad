@@ -66,6 +66,8 @@ module test_draw() {
     translate([3*offset, 0, 0]) rounded_rect(5*offset, 3*offset, 5, 3);
     // Quarter of a cylinder
     translate([3*offset, 5*offset, 0]) cylinder_quarter(offset, 2*offset);
+    // Cross beams
+    translate([3*offset, 8*offset, 0]) cross_beams(3*offset, 5*offset, offset/4);
 }
 
 // Draws a rounded rectangle
@@ -84,6 +86,24 @@ module cylinder_quarter(r, h){
         cylinder(r=r, h=h);
         translate ([-r-ex, -r-ex, -ex]) cube([2*r + 2*ex, r + ex, h + 2*ex]);
         translate ([-r-ex, -ex, -ex]) cube([r + ex, r + ex, h + 2*ex]);
+    }
+}
+
+// Draws cross beams in the ractangle with sides a and b,
+// used to shorten the print time
+module cross_beams(rect_a, rect_b, beam_width){
+    diag = sqrt(rect_a*rect_a + rect_b*rect_b);
+    rot = atan2(rect_b, rect_a);
+    translate([rect_a/2, rect_b/2, beam_width/2])
+    difference(){
+        union(){
+            rotate(rot) cube([diag, beam_width, beam_width], true);
+            rotate(-rot) cube([diag, beam_width, beam_width], true);
+        }
+        difference(){
+            cube([rect_a + 2*beam_width, rect_b + 2*beam_width, beam_width + 2*ex], true);
+            cube([rect_a, rect_b, beam_width + 4*ex], true);
+        }
     }
 }
 
