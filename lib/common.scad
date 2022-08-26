@@ -19,8 +19,8 @@ $fn = 128;
 
 // Hole dimension correction - if 3D printed holes turn out too small,
 // increase the value, or decrease the value if they're too big
-// Default value is 0.3 mm
-hdc = 0.3;
+// Default value is 0.4 mm
+hdc = 0.4;
 
 // Some common nuts and bolts dimensions, first number is bolt diameter
 // and the second one is metric nut size (wrench size). To get value for
@@ -37,12 +37,6 @@ nuts_bolts = [ [1.6, 3.2],  // M1.6, index = 0
                [6, 10],     // M6,   index = 6
                [8, 13],     // M8,   index = 7
                [10, 16] ];  // M10,  index = 8
-
-m2_dia = 2 + hdc;
-m25_dia = 2.5 + hdc;
-m3_dia = 3 + hdc;
-m4_dia = 4 + hdc;
-m5_dia = 5 + hdc;
 
 // Set to true to see some example models, default is false
 test = false;
