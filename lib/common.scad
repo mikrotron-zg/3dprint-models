@@ -111,7 +111,7 @@ function nut2dia(index) = nuts_bolts[index][1]/cos(180/6) + hdc;
 
 // Calculates bolt diameter for given bolt_nuts index,
 // check bolts_nuts list for index reference
-function bolt2dia(index) = nuts_bolts[index][0] + hdc;
+function bolt2dia(index) = nuts_bolts[index][0] + hdc/2;
 
 // Move to -ex on z axis
 function zex() = [0, 0, -ex];

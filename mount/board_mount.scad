@@ -10,8 +10,13 @@
 // This is where you should be using some board definiton,
 // uncomment the one you need or make your own using
 // /component/board/template.scad
+// List of existing includes:
+
 include <../component/board/arduino-uno.scad>;
+//include <../component/board/arduino-mega2560.scad>;
+//include <../component/board/t-call-esp32.scad>;
 //include <../component/board/xh-m404.scad>;
+//include <../component/board/heatbed-mosfet.scad>;
 
 // Plate thickness - defalut value is 2.5 mm, increase to make it
 // more rigid, or decrease for faster prints
