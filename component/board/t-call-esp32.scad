@@ -16,7 +16,7 @@ board_name = "T-Call ESP32";
 
 // PCB dimensions [x, y, z, corner radius] - if there is no
 // corner radius, set it to 0
-pcb = [75.05, 45, 1.6, 2];
+pcb = [75.05, 28.95, 1.6, 2];
 
 // Mount holes [x, y, diameter] - as many times as there are
 // mount holes on board. Example has four (on the corners),
@@ -28,6 +28,13 @@ mount_hole = [ [3.5, 2.2, 3],
                [pcb[0] - 2.2, 2.2, 3], 
                [pcb[0] - 2.2, pcb[1] - 2.2, 3],
                [3.5, pcb[1] - 2.2, 3] ];
+
+// Metric bolt index, please see /lib/common.scad file for reference.
+// Default value is 3, for M3 bolts
+bolt_index = 2;
+
+// Bolt length, default is 10 mm
+bolt_length = 12.5;
                
 // Set variable to true to show board mockup, but set it
 // back to 'false' once you're done or it'll show up in the

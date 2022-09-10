@@ -21,6 +21,13 @@ mount_hole = [ [3.1, 3.1, 3],
                [pcb[0] - 3.1, 3.1, 3], 
                [pcb[0] - 3.1, pcb[1] - 3.1, 3],
                [3.1, pcb[1] - 3.1, 3] ];
+
+// Metric bolt index, please see /lib/common.scad file for reference.
+// Default value is 3, for M3 bolts
+bolt_index = 3;
+
+// Bolt length, default is 10 mm
+bolt_length = 10;
                
 // Set variable to true to show board mockup
 show_mockup = false;

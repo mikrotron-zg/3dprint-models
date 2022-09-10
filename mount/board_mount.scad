@@ -22,14 +22,9 @@ include <../component/board/arduino-uno.scad>;
 // more rigid, or decrease for faster prints
 plate_thickness = 2.5;
 
-// Standoff height - depends on the length of bolts you use, take
-// into account PCB and maount plate thickness. Default is 6.4 mm,
-// which makes 10 mm bolts a perfect fit for most cases
-standoff_height = 6.4;
-
-// Metric bolt index, please see /lib/common.scad file for reference.
-// Default value is 3, for M3 bolts
-bolt_index = 3;
+// Standoff height - depends on the length of bolts you use, takes
+// into account PCB and mount plate thickness. 
+standoff_height = bolt_length - plate_thickness - pcb[2];
 
 // Margins make mount plate bigger then the board. If you set them
 // to zero, it'll be the same size as the board. On the other hand,
