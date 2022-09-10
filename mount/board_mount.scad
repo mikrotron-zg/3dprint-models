@@ -14,6 +14,7 @@
 
 include <../component/board/arduino-uno.scad>;
 //include <../component/board/arduino-mega2560.scad>;
+//include <../component/board/adafruit-feather.scad>;
 //include <../component/board/t-call-esp32.scad>;
 //include <../component/board/xh-m404.scad>;
 //include <../component/board/heatbed-mosfet.scad>;
