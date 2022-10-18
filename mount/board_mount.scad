@@ -19,6 +19,7 @@ include <../component/board/arduino-uno.scad>;
 //include <../component/board/xh-m404.scad>;
 //include <../component/board/heatbed-mosfet.scad>;
 //include <../component/board/xl-4015.scad>;
+//include <../component/board/protoboard-70x90.scad>;
 
 // Plate thickness - defalut value is 2.5 mm, increase to make it
 // more rigid, or decrease for faster prints
