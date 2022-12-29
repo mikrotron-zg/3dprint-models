@@ -21,10 +21,11 @@ include <../component/board/arduino-uno.scad>;
 //include <../component/board/xl-4015.scad>;
 //include <../component/board/protoboard-70x90.scad>;
 //include <../component/board/L9110S-driver-board.scad>;
+//include <../component/board/ESP32-expansion-board.scad>;
 
 // Plate thickness - defalut value is 2.5 mm, increase to make it
 // more rigid, or decrease for faster prints
-plate_thickness = 2.5;
+plate_thickness = 2.8;
 
 // Standoff height - depends on the length of bolts you use, takes
 // into account PCB and mount plate thickness. 
@@ -90,7 +91,7 @@ module standoffs() {
 }
 
 // Adds nut traps to the bottom of the plate and bolt holes for standoffs
-module nuts_and_bolts(nut_height = 2) {
+module nuts_and_bolts(nut_height = 2.5) {
     translate([margin[3], margin[2], -ex]) {
         for (i = [0 : len(mount_hole) -1]) {
             translate([mount_hole[i][0], mount_hole[i][1], 0]) {
