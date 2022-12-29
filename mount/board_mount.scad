@@ -20,6 +20,7 @@ include <../component/board/arduino-uno.scad>;
 //include <../component/board/heatbed-mosfet.scad>;
 //include <../component/board/xl-4015.scad>;
 //include <../component/board/protoboard-70x90.scad>;
+//include <../component/board/L9110S-driver-board.scad>;
 
 // Plate thickness - defalut value is 2.5 mm, increase to make it
 // more rigid, or decrease for faster prints
@@ -39,7 +40,18 @@ margin = [2, 2, 2, 2];
 
 // Corner radius for mount plate, if set to 0, renders as simple cube
 corner_radius = 3;
- 
+
+// If the board itself needs to be mounted, add mount hole in the center.
+// Set add_mount_hole to 1 or 2 to add holes or set to 0 for no mount hole
+//  and set the bolt index (default is 3, for M3 bolt)
+add_mount_hole = 0;
+mount_hole_bolt_index = 3;
+
+// Calculate mount board dimensions
+x = pcb[0] + margin[1] + margin[3];
+y = pcb[1] + margin[0] + margin[2];
+z = plate_thickness;
+
 // Entry point:
 board_mount();
  
@@ -51,14 +63,13 @@ module board_mount() {
         }
         nuts_and_bolts();
         name_imprint();
+        if (add_mount_hole > 0) add_mount_hole();
     }
 }
 
 // Draws only plate
 module mount_plate() {
-    x = pcb[0] + margin[1] + margin[3];
-    y = pcb[1] + margin[0] + margin[2];
-    z = plate_thickness;
+
     if (corner_radius > 0) {
         rounded_rect(x, y, z, corner_radius);
     } else {
@@ -100,5 +111,18 @@ module name_imprint(text_depth = 0.4) {
             linear_extrude(text_depth + ex)
             text(board_name, font = "Liberation Sans:style=Bold",
                  size = 5, valign = "center", halign = "center");
+    }
+}
+
+// Adds mount hole for the board itself
+module add_mount_hole() {
+    if (add_mount_hole == 1) {
+        translate([x/2, y/2, -ex]) 
+            cylinder(d = bolt2dia(bolt_index), h = plate_thickness + 2*ex);
+    } else {
+        translate([x/3, y/2, -ex]) 
+            cylinder(d = bolt2dia(bolt_index), h = plate_thickness + 2*ex);
+        translate([2*x/3, y/2, -ex]) 
+            cylinder(d = bolt2dia(bolt_index), h = plate_thickness + 2*ex);
     }
 }
