@@ -107,7 +107,7 @@ module cross_beams(rect_a, rect_b, beam_width){
   
 // Calculates nut diameter for given bolt_nuts index,
 // check bolts_nuts list for index reference
-function nut2dia(index) = nuts_bolts[index][1]/cos(180/6) + hdc;
+function nut2dia(index) = nuts_bolts[index][1]/cos(180/6) + hdc/2;
 
 // Calculates bolt diameter for given bolt_nuts index,
 // check bolts_nuts list for index reference
