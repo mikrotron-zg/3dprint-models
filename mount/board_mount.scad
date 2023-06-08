@@ -22,6 +22,7 @@ include <../component/board/arduino-uno.scad>;
 //include <../component/board/protoboard-70x90.scad>;
 //include <../component/board/L9110S-driver-board.scad>;
 //include <../component/board/ESP32-expansion-board.scad>;
+//include <../component/board/LM2596S.scad>;
 
 // Plate thickness - defalut value is 2.5 mm, increase to make it
 // more rigid, or decrease for faster prints
