@@ -115,3 +115,8 @@ function bolt2dia(index) = nuts_bolts[index][0] + hdc/2;
 
 // Move to -ex on z axis
 function zex() = [0, 0, -ex];
+
+// Calculates the sum of vector (array) elements for given
+// vector and starting index (default is 0)
+function vectorSum(vector, startAt = 0) = 
+    startAt < len(vector) - 1 ? vector[startAt] + vectorSum(vector, startAt + 1) : vector[startAt];
