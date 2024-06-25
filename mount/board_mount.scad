@@ -24,6 +24,7 @@ include <../component/board/arduino-uno.scad>;
 //include <../component/board/ESP32-expansion-board.scad>;
 //include <../component/board/LM2596S.scad>;
 //include <../component/board/OLED-128x64.scad>;
+//include <../component/board/BTT-SKR-V14.scad>;
 
 // Plate thickness - defalut value is 2.5 mm, increase to make it
 // more rigid, or decrease for faster prints
