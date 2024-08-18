@@ -67,7 +67,12 @@ button = [3.5, 6, 3.4];
 
 // Box dimensions
 box_wall = 2.4;
+box_wall_offset = [2, 1, 1, 3.5];
+box_bottom_offset = 6;
 box_overlap = 5;
+box = [cyd_length + 2*box_wall + box_wall_offset[0] + box_wall_offset[2],
+       cyd_width + 2*box_wall + box_wall_offset[1] + box_wall_offset[3],
+       box_wall + box_bottom_offset + cyd_pcb_height + box_overlap];
 
 /****************************************************************************
  ****************************** Main Modules ********************************
@@ -75,14 +80,52 @@ box_overlap = 5;
 cyd_box();
  
 module cyd_box() {
-    %cyd();
     box_bottom();
+    translate([box_wall + box_wall_offset[0], box_wall + box_wall_offset[1],
+               box_wall + box_bottom_offset]) %cyd();
 }
 
+// Bottom part of the box
 module box_bottom() {
-
+    difference() {
+        // Main body
+        rounded_rect(box[0], box[1], box[2], 3);
+        translate([box_wall, box_wall, box_wall])
+            rounded_rect(box[0] - 2*box_wall, box[1] - 2*box_wall, box[2], 3 - box_wall);
+        // Overlap cutout
+        translate([box_wall/2, box_wall/2, box[2] - box_overlap])
+            rounded_rect(box[0] - box_wall, box[1] - box_wall, box_overlap + ex, 3 - box_wall/2);
+        // USB cutout
+        translate([0, box_wall + box_wall_offset[1] + usb_connector_pos[1] + usb_connector[0]/2, 
+                    box_wall + box_bottom_offset - usb_connector[2]/4])
+            scale([1.75, 1.75, 2]) rotate(90) cube(usb_connector, center=true);
+        // I2C cutout
+        translate([box_wall + box_wall_offset[0] + cn1_connector_pos[0] - io_connector[0]/2,
+                   box[1] - box_wall/2, box_wall + box_bottom_offset - io_connector[2]/2])
+             scale(1.2) cube(io_connector, center=true);
+    }
+    // Mounts
+    translate([0, 0, box_wall]) {
+        translate([box_wall/2, box_wall/2, 0]) 
+            mount(box_wall_offset[0], box_wall_offset[1]);
+        translate([box[0] - box_wall/2, box_wall/2, 0]) mirror([1, 0, 0])
+            mount(box_wall_offset[2], box_wall_offset[1]);
+        translate([box[0] - box_wall/2, box[1] - box_wall/2, 0]) mirror([1, 1, 0])
+            mount(box_wall_offset[3], box_wall_offset[2]);
+        translate([box_wall/2, box[1] - box_wall/2, 0]) mirror([0, 1, 0])
+            mount(box_wall_offset[0], box_wall_offset[3]);
+    }
 }
 
+module mount(offset_x, offset_y) {
+    rounded_rect(box_wall/2 + offset_x + cyd_corner_radius + cyd_mh_dia*0.75,
+                 box_wall/2 + offset_y + cyd_corner_radius + cyd_mh_dia*0.75,
+                 box[2] - box_wall - box_overlap - cyd_pcb_height, 1);
+    translate([box_wall/2 + offset_x + cyd_corner_radius,
+               box_wall/2 + offset_y + cyd_corner_radius,
+               box[2] - box_wall - box_overlap - cyd_pcb_height])
+        cylinder(d = cyd_mh_dia - 0.3, h = cyd_pcb_height - 0.2);
+}
 
 /****************************************************************************
 ***************** Additional Modules and Functions **************************
