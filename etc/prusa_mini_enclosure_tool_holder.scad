@@ -20,6 +20,7 @@
 // Use common library
 include <../lib/common.scad>;
 
+// Dimensions
 mount_hole_dia = 3.3;
 mount_holes_dist = 60;
 mount_width = 10;
@@ -29,11 +30,12 @@ tool_holder_width = 30;
 tool_holder_length = mount_holes_dist + tool_holder_width + mount_width + 2*fillet_radius;
 tool_holder_height = 80;
 
-
-//mount();
+// Entry point
 prusa_mini_enclosure_tool_holder();
 
+// Tool holder model
 module prusa_mini_enclosure_tool_holder() {
+    // Main body
     difference() {
         rounded_rect(tool_holder_length, tool_holder_width, 
                      tool_holder_height, tool_holder_width/2 - ex/2);
@@ -41,10 +43,12 @@ module prusa_mini_enclosure_tool_holder() {
             rounded_rect(tool_holder_length - 2*wall, tool_holder_width - 2*wall, 
                          tool_holder_height, tool_holder_width/2 - wall - ex/2);
     }
+    // Mounts
     translate([tool_holder_width/2, wall, tool_holder_height]) rotate([90, 0, 0]) mount();
     translate([tool_holder_length - tool_holder_width/2, 0, tool_holder_height]) rotate([90, 0, 180]) mount();
 }
 
+// We need two of these
 module mount() {
     translate([mount_width/2 + fillet_radius, mount_width/2, 0]) difference() {
         union() {
@@ -59,6 +63,7 @@ module mount() {
     }
 }
 
+// TODO: should be moved to common lib
 module fillet(radius = 3, height = 1) {
     translate([radius, radius, 0]) rotate(180) difference() {
         cube([radius, radius, height]);
